@@ -19,16 +19,21 @@ $username = $cleardb_url["user"];
 $password = $cleardb_url["pass"];
 // Keep this API Key value to be compatible with the ESP32 code provided in the project page. 
 // If you change this value, the ESP32 sketch needs to match
-$api_key_value = "tPmAT5Ab3j7F9";
-$api_key= $sensor = $location = $value1 = $value2 = $value3 = "";
+$api_key_value = "ZGxmSxvDKs8ij";
+$api_key= $datetime = $voltage = $current = $power = $energy = $frequency = $power_factor = $current_ch1 = $current_ch2 = $current_ch3 = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
-        $sensor = test_input($_POST["sensor"]);
-        $location = test_input($_POST["location"]);
-        $value1 = test_input($_POST["value1"]);
-        $value2 = test_input($_POST["value2"]);
-        $value3 = test_input($_POST["value3"]);
+        $datetime = test_input($_POST["datetime"]);
+        $voltage = test_input($_POST["voltage"]);
+        $current = test_input($_POST["current"]);
+        $power = test_input($_POST["power"]);
+        $energy = test_input($_POST["energy"]);
+        $frequency = test_input($_POST["frequency"]);
+        $power_factor = test_input($_POST["power_factor"]);
+        $current_ch1 = test_input($_POST["current_ch1"]);
+        $current_ch2 = test_input($_POST["current_ch2"]);
+        $current_ch3 = test_input($_POST["current_ch3"]);
         
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -37,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("Connection failed: " . $conn->connect_error);
         } 
         
-        $sql = "INSERT INTO SensorData (sensor, location, value1, value2, value3)
-        VALUES ('" . $sensor . "', '" . $location . "', '" . $value1 . "', '" . $value2 . "', '" . $value3 . "')";
+        $sql = "INSERT INTO EHousingData (datetime, voltage, current, power, energy, frequency, power_factor, current_ch1, current_ch2, current_ch3)
+        VALUES ('" . $datetime . "', '" . $voltage . "', '" . $current . "', '" . $power . "', '" . $energy . "', '" . $frequency . "', '" . $power_factor . "', '" . $current_ch1 . "', '" . $current_ch2 . "', '" . $current_ch3 . "')";
         
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
